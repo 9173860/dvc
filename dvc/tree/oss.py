@@ -128,6 +128,6 @@ class OSSTree(BaseTree):  # pylint:disable=abstract-method
         self, from_info, to_file, name=None, no_progress_bar=False, **_kwargs
     ):
         with Tqdm(desc=name, disable=no_progress_bar, bytes=True) as pbar:
-            self.oss_service.get_object_to_file(
-                from_info.path, to_file, progress_callback=pbar.update_to
+            oss2.resumable_download(
+                self.oss_service, from_info.path, to_file, progress_callback=pbar.update_to
             )
